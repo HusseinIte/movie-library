@@ -22,7 +22,8 @@ class UpdateRatingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string|min:10|max:1000',
         ];
     }
 }
