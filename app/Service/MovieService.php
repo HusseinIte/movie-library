@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Movie;
+use function Symfony\Component\HttpKernel\Profiler\all;
 
 class MovieService
 {
@@ -21,7 +22,12 @@ class MovieService
      */
     public function store(StoreMovieRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Movie::create($validated);
+        return response()->json([
+            'success' => 'movie has created'
+        ]);
+
     }
 
     /**
@@ -37,7 +43,8 @@ class MovieService
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        //
+        $validated=$request->validated();
+        $movie->update($validated);
     }
 
     /**
