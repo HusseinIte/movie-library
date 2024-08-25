@@ -31,13 +31,13 @@ Postman Collection Link:
 https://drive.google.com/file/d/1q0amFpSOsZFkvnW3qERRVVUd6aVttkBY/view?usp=drive_link
 
 How to Run:
-- open terminal 
-- git clone <repository-url>
--cd <project-folder>
--composer install
--cp .env.example .env
--create database your_database_name;
--php artisan migrate
--php artisan serve
+- open terminal ,
+- git clone <repository-url> , 
+-cd <project-folder> ,
+-composer install ,
+-cp .env.example .env ,
+-create database your_database_name ,
+-php artisan migrate  ,
+-php artisan serve ,
 -The default URL will be http://localhost:8000.
 
