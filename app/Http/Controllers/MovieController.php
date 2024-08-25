@@ -6,6 +6,7 @@ use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Service\MovieService;
+use Illuminate\Http\Request;
 use function Carbon\this;
 
 
@@ -32,9 +33,9 @@ class MovieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $this->movieService->index($request);
     }
 
     /**
@@ -52,7 +53,7 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        //
+        return $this->movieService->show($movie);
     }
 
     /**
@@ -71,6 +72,6 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        return $this->movieService->destroy($movie);
     }
 }

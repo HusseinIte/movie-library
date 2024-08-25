@@ -5,16 +5,29 @@ namespace App\Service;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Movie;
-use function Symfony\Component\HttpKernel\Profiler\all;
+use Illuminate\Http\Request;
 
 class MovieService
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Movie::query();
+        if ($request->filled('genre')) {
+            $query->byGenre($request->input('genre'));
+        }
+        if ($request->filled('director')) {
+            $query->byDirector($request->input('director'));
+        }
+        if ($request->filled('sort_order')) {
+            $query->sortByRelease($request->input('sort_order'));
+        }
+        $moviesPerPage = $request->get('perPage', 10);
+        $movies = $query->paginate($moviesPerPage);
+        return $movies;
+
     }
 
     /**
@@ -32,10 +45,15 @@ class MovieService
 
     /**
      * Display the specified resource.
+     * @param Movie $movie
+     * @return
      */
     public function show(Movie $movie)
     {
-        //
+        return response()->json([
+            'success' => 'movie has retrieve',
+            'movie' => $movie
+        ]);
     }
 
     /**
@@ -43,7 +61,7 @@ class MovieService
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        $validated=$request->validated();
+        $validated = $request->validated();
         $movie->update($validated);
     }
 
@@ -52,6 +70,9 @@ class MovieService
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return response()->json([
+            'success' => 'movie ' . $movie->title . ' has been deleted'
+        ]);
     }
 }
