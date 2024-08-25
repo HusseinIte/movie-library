@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
 // *****  Movie Route ********
 Route::apiResource('movies', MovieController::class);
 
-// ******* Rating Route **********
+// ******* Rating Route with Authentication  **********
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('movies/{movie}/ratings', [RatingController::class, 'store']);
     Route::put('ratings/{rating}', [RatingController::class, 'update']);
@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //    show rating's movies  by auth user
     Route::get('user/ratings', [RatingController::class, 'showRatingByUser']);
 });
-
+//    Rout Rating without Auth
 Route::get('ratings/{id}', [RatingController::class, 'showById']);
 Route::get('ratings', [RatingController::class, 'getAll']);
 //        show rating's movie

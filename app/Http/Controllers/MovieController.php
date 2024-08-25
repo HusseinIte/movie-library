@@ -8,7 +8,10 @@ use App\Http\Requests\UpdateMovieRequest;
 use App\Service\MovieService;
 use Illuminate\Http\Request;
 use function Carbon\this;
-
+/*
+ * this controller responsible for crud function Movies
+ * create - update - delete - read - readByID => Movie
+ */
 
 /**
  * Class MovieController
@@ -32,6 +35,8 @@ class MovieController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
@@ -41,7 +46,7 @@ class MovieController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param StoreMovieRequest $request
-     * @return
+     * @return \App\Http\Resources\MovieResource
      */
     public function store(StoreMovieRequest $request)
     {
@@ -50,6 +55,8 @@ class MovieController extends Controller
 
     /**
      * Display the specified resource.
+     * @param Movie $movie
+     * @return \App\Http\Resources\MovieResource
      */
     public function show(Movie $movie)
     {
@@ -60,6 +67,7 @@ class MovieController extends Controller
      * Update the specified resource in storage.
      * @param UpdateMovieRequest $request
      * @param Movie $movie
+     * @return \App\Http\Resources\MovieResource
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
@@ -69,6 +77,7 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param Movie $movie
+     * @return mixed
      */
     public function destroy(Movie $movie)
     {
