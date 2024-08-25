@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,7 +14,16 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // *****  Movie Route ********
-Route::apiResource('movies',MovieController::class);
+Route::apiResource('movies', MovieController::class);
 
+// ******* Rating Route **********
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('movies/{movie}/ratings', [RatingController::class, 'store']);
+    Route::put('ratings/{rating}', [RatingController::class, 'update']);
+    Route::delete('ratings/{rating}',[RatingController::class,'destroy']);
+});
+
+Route::get('ratings/{id}', [RatingController::class, 'showById']);
+Route::get('ratings', [RatingController::class, 'getAll']);
 
 
