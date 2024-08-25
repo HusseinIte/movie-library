@@ -20,10 +20,13 @@ Route::apiResource('movies', MovieController::class);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('movies/{movie}/ratings', [RatingController::class, 'store']);
     Route::put('ratings/{rating}', [RatingController::class, 'update']);
-    Route::delete('ratings/{rating}',[RatingController::class,'destroy']);
+    Route::delete('ratings/{rating}', [RatingController::class, 'destroy']);
+//    show rating's movies  by auth user
+    Route::get('user/ratings', [RatingController::class, 'showRatingByUser']);
 });
 
 Route::get('ratings/{id}', [RatingController::class, 'showById']);
 Route::get('ratings', [RatingController::class, 'getAll']);
-
+//        show rating's movie
+Route::get('movies/{id}/ratings', [RatingController::class, 'showRatingByMovie']);
 

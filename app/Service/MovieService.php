@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class MovieService
         }
         $moviesPerPage = $request->get('perPage', 10);
         $movies = $query->paginate($moviesPerPage);
-        return $movies;
+
+        return  MovieResource::collection($movies);
 
     }
 
@@ -50,9 +52,10 @@ class MovieService
      */
     public function show(Movie $movie)
     {
+
         return response()->json([
             'success' => 'movie has retrieve',
-            'movie' => $movie
+            'movie' => new MovieResource($movie)
         ]);
     }
 
@@ -63,6 +66,9 @@ class MovieService
     {
         $validated = $request->validated();
         $movie->update($validated);
+        return response()->json([
+            'success' => 'movie ' . $movie->title . 'updated successfully'
+        ]);
     }
 
     /**
