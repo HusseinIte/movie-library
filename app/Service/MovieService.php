@@ -38,7 +38,7 @@ class MovieService
         $moviesPerPage = $request->get('perPage', 10);
         $movies = $query->paginate($moviesPerPage);
 
-        return response(MovieResource::collection($movies), 200);
+        return MovieResource::collection($movies);
 
     }
 
